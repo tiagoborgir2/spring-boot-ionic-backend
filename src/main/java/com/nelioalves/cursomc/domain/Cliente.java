@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -30,11 +31,18 @@ public class Cliente implements Serializable {
 	//private TipoCliente tipo; 1º alteração para armazenar internamente um Integer, mas para o sistema continua sendo uma String.
 	private Integer tipo;
 	
-	@OneToMany(mappedBy = "cliente")
+	/*
+	 * Por padrão não é possível deletar um para muitos ou muitos para muitos, é
+	 * necessário usar o cascade para o JPA executar no BD.
+	 */	
+	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
 	private List<Endereco> enderecos = new ArrayList<>();
 	
-	//No projeto a classe Telefone por ser muito simples foi criado um Set ao invés de criar uma classe e usado estas anotações paara referenciar no BD
-	//Set é um conjunto que não aceita repetição diferente do List.
+	/*
+	 * No projeto a classe Telefone por ser muito simples foi criado um Set ao
+	 * invés de criar uma classe e usado estas anotações paara referenciar no BD
+	 * Set é um conjunto que não aceita repetição diferente do List.
+	 */	
 	@ElementCollection
 	@CollectionTable(name = "TELEFONE")
 	private Set<String> telefones = new HashSet<>();
