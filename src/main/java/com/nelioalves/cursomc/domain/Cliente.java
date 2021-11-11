@@ -30,10 +30,12 @@ public class Cliente implements Serializable {
 	
 	@Column(unique = true)
 	private String email;
-	
 	private String cpfOuCnpj;
 	//private TipoCliente tipo; 1º alteração para armazenar internamente um Integer, mas para o sistema continua sendo uma String.
 	private Integer tipo;
+	
+	@JsonIgnore
+	private String senha;
 	
 	/*
 	 * Por padrão não é possível deletar um para muitos ou muitos para muitos, é
@@ -58,7 +60,7 @@ public class Cliente implements Serializable {
 	public Cliente() {
 	}
 
-	public Cliente(Integer id, String nome, String email, String cpfOuCnpj, TipoCliente tipo) {
+	public Cliente(Integer id, String nome, String email, String cpfOuCnpj, TipoCliente tipo, String senha) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -66,6 +68,7 @@ public class Cliente implements Serializable {
 		this.cpfOuCnpj = cpfOuCnpj;
 		//this.tipo = tipo; 2ª Alteração
 		this.tipo = (tipo==null) ? null : tipo.getCod();
+		this.senha = senha;
 	}
 
 	public Integer getId() {
@@ -108,6 +111,14 @@ public class Cliente implements Serializable {
 	public void setTipo(TipoCliente tipo) {
 		//this.tipo = tipo; 3ª Alteração
 		this.tipo = tipo.getCod();
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 	public List<Endereco> getEnderecos() {
