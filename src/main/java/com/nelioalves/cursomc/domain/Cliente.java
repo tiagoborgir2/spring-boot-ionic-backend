@@ -49,7 +49,7 @@ public class Cliente implements Serializable {
 	
 	/*
 	 * No projeto a classe Telefone por ser muito simples foi criado um Set ao
-	 * invés de criar uma classe e usado estas anotações paara referenciar no BD
+	 * invés de criar uma classe e foi usado estas anotações para referenciar no BD
 	 * Set é um conjunto que não aceita repetição diferente do List.
 	 */	
 	@ElementCollection
@@ -63,6 +63,8 @@ public class Cliente implements Serializable {
 	@JsonIgnore
 	@OneToMany(mappedBy = "cliente")
 	private List<Pedido> pedidos = new ArrayList<>();
+	
+	private String imageUrl;
 	
 	public Cliente() {
 		addPerfil(Perfil.CLIENTE);
@@ -185,5 +187,13 @@ public class Cliente implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 }
